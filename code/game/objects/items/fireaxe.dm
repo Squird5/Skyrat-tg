@@ -50,7 +50,7 @@
 	return ..()
 
 /obj/item/fireaxe/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] axes [user.p_them()]self from head to toe! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] axes [user.p_them()]self from head to toe! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return (BRUTELOSS)
 
 /obj/item/fireaxe/afterattack(atom/A, mob/user, proximity)
@@ -88,14 +88,3 @@
 /obj/item/fireaxe/metal_h2_axe/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/two_handed, force_unwielded=5, force_wielded=23, icon_wielded="[base_icon_state]1")
-
-/obj/item/fireaxe/elder_atmosian_fireaxe
-	icon_state = "elder_axe0"
-	base_icon_state = "elder_axe"
-	name = "eldest fireaxe"
-	desc = "Upgrade of the metallic hydrogen axe; created by some madman with mysterious powers"
-
-/obj/item/fireaxe/elder_atmosian_fireaxe/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=7, force_wielded=25, icon_wielded="[base_icon_state]1")
-	AddComponent(/datum/component/lifesteal, 5)

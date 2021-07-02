@@ -50,10 +50,23 @@ Key procs
 	/// Currently spoken language
 	var/selected_language
 	/// Tracks the entity that owns the holder.
-	var/owner
+	var/atom/owner
 
 /// Initializes, and copies in the languages from the current atom if available.
-/datum/language_holder/New(_owner)
+///datum/language_holder/New(atom/_owner) //ORIGINAL
+/datum/language_holder/New(atom/_owner, datum/preferences/pref_load) //SKYRAT EDIT CHANGE - CUSTOMIZATION
+	if(_owner && QDELETED(_owner))
+		CRASH("Langauge holder added to a qdeleting thing, what the fuck \ref[_owner]")
+	//SKYRAT EDIT ADDITION BEGIN - CUSTOMIZATION
+	if(pref_load)
+		//If we're loading a holder from prefs, override the languages
+		understood_languages.Cut()
+		spoken_languages.Cut()
+		for(var/lang_path in pref_load.languages)
+			understood_languages[lang_path] = list(LANGUAGE_ATOM)
+			if(pref_load.languages[lang_path] == LANGUAGE_SPOKEN)
+				spoken_languages[lang_path] = list(LANGUAGE_ATOM)
+	//SKYRAT EDIT ADDITION END
 	owner = _owner
 	if(istype(owner, /datum/mind))
 		var/datum/mind/M = owner
@@ -63,6 +76,7 @@ Key procs
 
 /datum/language_holder/Destroy()
 	QDEL_NULL(language_menu)
+	owner = null
 	return ..()
 
 /// Grants the supplied language.
@@ -244,8 +258,7 @@ Key procs
 							/datum/language/narsie = list(LANGUAGE_ATOM))
 
 /datum/language_holder/drone
-	understood_languages = list(/datum/language/drone = list(LANGUAGE_ATOM),
-								/datum/language/machine = list(LANGUAGE_ATOM))
+	understood_languages = list(/datum/language/drone = list(LANGUAGE_ATOM))
 	spoken_languages = list(/datum/language/drone = list(LANGUAGE_ATOM))
 	blocked_languages = list(/datum/language/common = list(LANGUAGE_ATOM))
 

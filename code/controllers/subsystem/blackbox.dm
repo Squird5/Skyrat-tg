@@ -1,7 +1,6 @@
 SUBSYSTEM_DEF(blackbox)
 	name = "Blackbox"
 	wait = 6000
-	flags = SS_NO_TICK_CHECK
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	init_order = INIT_ORDER_BLACKBOX
 
@@ -34,7 +33,7 @@ SUBSYSTEM_DEF(blackbox)
 
 	if(CONFIG_GET(flag/use_exp_tracking))
 		if((triggertime < 0) || (world.time > (triggertime +3000))) //subsystem fires once at roundstart then once every 10 minutes. a 5 min check skips the first fire. The <0 is midnight rollover check
-			update_exp(10,FALSE)
+			update_exp(10)
 
 /datum/controller/subsystem/blackbox/proc/CheckPlayerCount()
 	set waitfor = FALSE
@@ -43,13 +42,14 @@ SUBSYSTEM_DEF(blackbox)
 		return
 	var/playercount = LAZYLEN(GLOB.player_list)
 	var/admincount = GLOB.admins.len
-	var/datum/db_query/query_record_playercount = SSdbcore.NewQuery({"
-		INSERT INTO [format_table_name("legacy_population")] (playercount, admincount, time, server_ip, server_port, round_id)
-		VALUES (:playercount, :admincount, :time, INET_ATON(:server_ip), :server_port, :round_id)
+	var/datum/db_query/query_record_playercount = SSdbcore.NewQuery(/* SKYRAT EDIT CHANGE - MULTISERVER */{"
+		INSERT INTO [format_table_name("legacy_population")] (playercount, admincount, time, server_name, server_ip, server_port, round_id)
+		VALUES (:playercount, :admincount, :time, :server_name, INET_ATON(:server_ip), :server_port, :round_id)
 	"}, list(
 		"playercount" = playercount,
 		"admincount" = admincount,
 		"time" = SQLtime(),
+		"server_name" = CONFIG_GET(string/serversqlname), // SKYRAT EDIT ADDITION - MULTISERVER
 		"server_ip" = world.internet_address || "0",
 		"server_port" = "[world.port]",
 		"round_id" = GLOB.round_id,
@@ -154,6 +154,10 @@ SUBSYSTEM_DEF(blackbox)
 			record_feedback("tally", "radio_usage", 1, "CTF red team")
 		if(FREQ_CTF_BLUE)
 			record_feedback("tally", "radio_usage", 1, "CTF blue team")
+		if(FREQ_CTF_GREEN)
+			record_feedback("tally", "radio_usage", 1, "CTF green team")
+		if(FREQ_CTF_YELLOW)
+			record_feedback("tally", "radio_usage", 1, "CTF yellow team")
 		else
 			record_feedback("tally", "radio_usage", 1, "other")
 
@@ -315,9 +319,9 @@ Versioning
 	if(!SSdbcore.Connect())
 		return
 
-	var/datum/db_query/query_report_death = SSdbcore.NewQuery({"
-		INSERT INTO [format_table_name("death")] (pod, x_coord, y_coord, z_coord, mapname, server_ip, server_port, round_id, tod, job, special, name, byondkey, laname, lakey, bruteloss, fireloss, brainloss, oxyloss, toxloss, cloneloss, staminaloss, last_words, suicide)
-		VALUES (:pod, :x_coord, :y_coord, :z_coord, :map, INET_ATON(:internet_address), :port, :round_id, :time, :job, :special, :name, :key, :laname, :lakey, :brute, :fire, :brain, :oxy, :tox, :clone, :stamina, :last_words, :suicide)
+	var/datum/db_query/query_report_death = SSdbcore.NewQuery(/* SKYRAT EDIT CHANGE - MULTISERVER */{"
+		INSERT INTO [format_table_name("death")] (pod, x_coord, y_coord, z_coord, mapname, server_name, server_ip, server_port, round_id, tod, job, special, name, byondkey, laname, lakey, bruteloss, fireloss, brainloss, oxyloss, toxloss, cloneloss, staminaloss, last_words, suicide)
+		VALUES (:pod, :x_coord, :y_coord, :z_coord, :map, :server_name, INET_ATON(:internet_address), :port, :round_id, :time, :job, :special, :name, :key, :laname, :lakey, :brute, :fire, :brain, :oxy, :tox, :clone, :stamina, :last_words, :suicide)
 	"}, list(
 		"name" = L.real_name,
 		"key" = L.ckey,
@@ -339,6 +343,7 @@ Versioning
 		"last_words" = L.last_words,
 		"suicide" = L.suiciding,
 		"map" = SSmapping.config.map_name,
+		"server_name" = CONFIG_GET(string/serversqlname),  // SKYRAT EDIT ADDITION - MULTISERVER
 		"internet_address" = world.internet_address || "0",
 		"port" = "[world.port]",
 		"round_id" = GLOB.round_id,
@@ -347,3 +352,48 @@ Versioning
 	if(query_report_death)
 		query_report_death.Execute(async = TRUE)
 		qdel(query_report_death)
+
+/datum/controller/subsystem/blackbox/proc/ReportCitation(citation, sender, sender_ic, recipient, message, fine = 0, paid = 0)
+	var/datum/db_query/query_report_citation = SSdbcore.NewQuery({"INSERT INTO [format_table_name("citation")]
+	(server_ip,
+	server_port,
+	round_id,
+	citation,
+	action,
+	sender,
+	sender_ic,
+	recipient,
+	crime,
+	fine,
+	paid,
+	timestamp) VALUES (
+	INET_ATON(:server_ip),
+	:port,
+	:round_id,
+	:citation,
+	:action,
+	:sender,
+	:sender_ic,
+	:recipient,
+	:message,
+	:fine,
+	:paid,
+	:timestamp
+	) ON DUPLICATE KEY UPDATE
+	paid = paid + VALUES(paid)"}, list(
+		"server_ip" = world.internet_address || "0",
+		"port" = "[world.port]",
+		"round_id" = GLOB.round_id,
+		"citation" = citation,
+		"action" = "Citation Created",
+		"sender" = sender,
+		"sender_ic" = sender_ic,
+		"recipient" = recipient,
+		"message" = message,
+		"fine" = fine,
+		"paid" = paid,
+		"timestamp" = SQLtime()
+	))
+	if(query_report_citation)
+		query_report_citation.Execute(async = TRUE)
+		qdel(query_report_citation)

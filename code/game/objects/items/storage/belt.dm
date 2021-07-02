@@ -15,7 +15,7 @@
 	var/content_overlays = FALSE //If this is true, the belt will gain overlays based on what it's holding
 
 /obj/item/storage/belt/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] begins belting [user.p_them()]self with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] begins belting [user.p_them()]self with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
 
 /obj/item/storage/belt/update_overlays()
@@ -70,7 +70,8 @@
 		/obj/item/inducer,
 		/obj/item/plunger,
 		/obj/item/airlock_painter,
-		/obj/item/pipe_painter
+		/obj/item/pipe_painter,
+		/obj/item/weldingtool/electric // SKYRAT EDIT - original: /obj/item/weldingtool/experimental
 		))
 
 /obj/item/storage/belt/utility/chief
@@ -83,7 +84,7 @@
 /obj/item/storage/belt/utility/chief/full/PopulateContents()
 	new /obj/item/screwdriver/power(src)
 	new /obj/item/crowbar/power(src)
-	new /obj/item/weldingtool/experimental(src)//This can be changed if this is too much
+	new /obj/item/weldingtool/electric(src) // SKYRAT EDIT - original: 	new /obj/item/weldingtool/experimental(src)
 	new /obj/item/multitool(src)
 	new /obj/item/stack/cable_coil(src)
 	new /obj/item/extinguisher/mini(src)
@@ -102,7 +103,7 @@
 /obj/item/storage/belt/utility/full/powertools/PopulateContents()
 	new /obj/item/screwdriver/power(src)
 	new /obj/item/crowbar/power(src)
-	new /obj/item/weldingtool/experimental(src)
+	new /obj/item/weldingtool/electric(src) // SKYRAT EDIT - original: new /obj/item/weldingtool/experimental(src)
 	new /obj/item/multitool(src)
 	new /obj/item/holosign_creator/atmos(src)
 	new /obj/item/extinguisher/mini(src)
@@ -407,7 +408,7 @@
 
 /obj/item/storage/belt/military/snack/Initialize()
 	. = ..()
-	var/sponsor = pick("DonkCo", "Waffle Co.", "Roffle Co.", "Gorlax Marauders", "Tiger Cooperative")
+	var/sponsor = pick("Donk Co.", "Waffle Co.", "Roffle Co.", "Gorlax Marauders", "Tiger Cooperative")
 	desc = "A set of snack-tical webbing worn by athletes of the [sponsor] VR sports division."
 
 /obj/item/storage/belt/military/snack/ComponentInitialize()
@@ -544,7 +545,7 @@
 /obj/item/storage/belt/wands/full/PopulateContents()
 	new /obj/item/gun/magic/wand/death(src)
 	new /obj/item/gun/magic/wand/resurrection(src)
-	new /obj/item/gun/magic/wand/polymorph(src)
+	new /obj/item/gun/magic/wand/fireball(src) //SKYRAT EDIT - Trades polymorph for second fireball
 	new /obj/item/gun/magic/wand/teleport(src)
 	new /obj/item/gun/magic/wand/door(src)
 	new /obj/item/gun/magic/wand/fireball(src)
@@ -578,7 +579,10 @@
 		/obj/item/melee/flyswatter,
 		/obj/item/assembly/mousetrap,
 		/obj/item/paint/paint_remover,
-		/obj/item/pushbroom
+		/obj/item/pushbroom, //SKYRAT EDIT - Comma.....
+		/obj/item/mop, //SKYRAT EDIT - For when you're lazy to use soap
+		/obj/item/mop/advanced, //SKYRAT EDIT For when you're lazy to use a bucket
+		/obj/item/reagent_containers/glass/bucket //SKYRAT EDIT - Bucket
 		))
 
 /obj/item/storage/belt/janitor/full/PopulateContents()
@@ -703,18 +707,18 @@
 /obj/item/storage/belt/sabre/examine(mob/user)
 	. = ..()
 	if(length(contents))
-		. += "<span class='notice'>Alt-click it to quickly draw the blade.</span>"
+		. += span_notice("Alt-click it to quickly draw the blade.")
 
 /obj/item/storage/belt/sabre/AltClick(mob/user)
 	if(!user.canUseTopic(src, BE_CLOSE, NO_DEXTERITY, FALSE, TRUE))
 		return
 	if(length(contents))
 		var/obj/item/I = contents[1]
-		user.visible_message("<span class='notice'>[user] takes [I] out of [src].</span>", "<span class='notice'>You take [I] out of [src].</span>")
+		user.visible_message(span_notice("[user] takes [I] out of [src]."), span_notice("You take [I] out of [src]."))
 		user.put_in_hands(I)
 		update_appearance()
 	else
-		to_chat(user, "<span class='warning'>[src] is empty!</span>")
+		to_chat(user, span_warning("[src] is empty!"))
 
 /obj/item/storage/belt/sabre/update_icon_state()
 	icon_state = initial(inhand_icon_state)

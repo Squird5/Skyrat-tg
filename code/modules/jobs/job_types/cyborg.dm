@@ -2,7 +2,7 @@
 	title = "Cyborg"
 	auto_deadmin_role_flags = DEADMIN_POSITION_SILICON
 	faction = "Station"
-	total_positions = 3	// SKYRAT EDIT: Original value (0)
+	total_positions = 0
 	spawn_positions = 3	// SKYRAT EDIT: Original value (1)
 	supervisors = "your laws and the AI" //Nodrak
 	selection_color = "#ddffdd"
@@ -11,6 +11,8 @@
 	exp_type = EXP_TYPE_CREW
 
 	display_order = JOB_DISPLAY_ORDER_CYBORG
+	departments = DEPARTMENT_SILICON
+	random_spawns_possible = FALSE
 
 /datum/job/cyborg/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE, latejoin = FALSE, datum/outfit/outfit_override = null, client/preference_source = null)
 	if(visualsOnly)

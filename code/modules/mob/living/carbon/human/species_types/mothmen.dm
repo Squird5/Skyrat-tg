@@ -3,10 +3,11 @@
 	id = "moth"
 	say_mod = "flutters"
 	default_color = "00FF00"
-	species_traits = list(LIPS, NOEYESPRITES, HAS_FLESH, HAS_BONE, HAS_MARKINGS, TRAIT_ANTENNAE)
+	species_traits = list(LIPS, HAS_FLESH, HAS_BONE, HAS_MARKINGS, TRAIT_ANTENNAE)
 	inherent_biotypes = MOB_ORGANIC|MOB_HUMANOID|MOB_BUG
 	mutant_bodyparts = list("moth_wings" = "Plain", "moth_antennae" = "Plain", "moth_markings" = "None")
 	attack_verb = "slash"
+	attack_effect = ATTACK_EFFECT_CLAW
 	attack_sound = 'sound/weapons/slash.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
 	meat = /obj/item/food/meat/slab/human/mutant/moth
@@ -19,6 +20,7 @@
 	wings_icons = list("Megamoth", "Mothra")
 	has_innate_wings = TRUE
 	payday_modifier = 0.75
+	family_heirlooms = list(/obj/item/flashlight/lantern/heirloom_moth)
 
 /datum/species/moth/regenerate_organs(mob/living/carbon/C,datum/species/old_species,replace_current=TRUE,list/excluded_zones)
 	. = ..()
@@ -42,7 +44,7 @@
 	if(.) //if the mob is immune to fire, don't burn wings off.
 		return
 	if(H.dna.features["moth_wings"] != "Burnt Off" && H.bodytemperature >= 800 && H.fire_stacks > 0) //do not go into the extremely hot light. you will not survive
-		to_chat(H, "<span class='danger'>Your precious wings burn to a crisp!</span>")
+		to_chat(H, span_danger("Your precious wings burn to a crisp!"))
 		SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "burnt_wings", /datum/mood_event/burnt_wings)
 		if(!H.dna.features["original_moth_wings"]) //Fire apparently destroys DNA, so let's preserve that elsewhere, checks if an original was already stored to prevent bugs
 			H.dna.features["original_moth_wings"] = H.dna.features["moth_wings"]
@@ -77,6 +79,17 @@
 		if(current && (current.return_pressure() >= ONE_ATMOSPHERE*0.85)) //as long as there's reasonable pressure and no gravity, flight is possible
 			return TRUE
 
+//SKYRAT EDIT REMOVAL BEGIN
+/*
+/datum/species/moth/randomize_main_appearance_element(mob/living/carbon/human/human_mob)
+	var/wings = pick(GLOB.moth_wings_list)
+	mutant_bodyparts["wings"] = wings
+	mutant_bodyparts["moth_wings"] = wings
+	human_mob.dna.features["wings"] = wings
+	human_mob.dna.features["moth_wings"] = wings
+	human_mob.update_body()
+*/
+//SKYRAT EDIT REMOVAL END
 
 /datum/species/moth/spec_fully_heal(mob/living/carbon/human/H)
 	. = ..()

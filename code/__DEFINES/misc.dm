@@ -13,16 +13,17 @@
 #define REVERSE_DIR(dir) ( ((dir & 85) << 1) | ((dir & 170) >> 1) )
 
 //Human Overlays Indexes/////////
-#define MUTATIONS_LAYER	29 //mutations. Tk headglows, cold resistance glow, etc
-#define BODY_BEHIND_LAYER 28 //certain mutantrace features (tail when looking south) that must appear behind the body parts
-#define BODYPARTS_LAYER	27 //Initially "AUGMENTS", this was repurposed to be a catch-all bodyparts flag
-#define BODY_ADJ_LAYER 26 //certain mutantrace features (snout, body markings) that must appear above the body parts
-#define BODY_LAYER 25 //underwear, undershirts, socks, eyes, lips(makeup)
-#define FRONT_MUTATIONS_LAYER 24 //mutations that should appear above body, body_adj and bodyparts layer (e.g. laser eyes)
-#define DAMAGE_LAYER 23 //damage indicators (cuts and burns)
-#define UNIFORM_LAYER 22
-#define BANDAGE_LAYER 21 //Overlays related to wounds, bandages and splints too //SKYRAT EDIT ADDITION - MEDICAL
-#define ID_LAYER 20 //lmao at the idiot who put both ids and hands on the same layer
+#define MUTATIONS_LAYER 30 //mutations. Tk headglows, cold resistance glow, etc
+#define BODY_BEHIND_LAYER 29 //certain mutantrace features (tail when looking south) that must appear behind the body parts
+#define BODYPARTS_LAYER 28 //Initially "AUGMENTS", this was repurposed to be a catch-all bodyparts flag
+#define BODY_ADJ_LAYER 27 //certain mutantrace features (snout, body markings) that must appear above the body parts
+#define BODY_LAYER 26 //underwear, undershirts, socks, eyes, lips(makeup)
+#define FRONT_MUTATIONS_LAYER 25 //mutations that should appear above body, body_adj and bodyparts layer (e.g. laser eyes)
+#define DAMAGE_LAYER 24 //damage indicators (cuts and burns)
+#define UNIFORM_LAYER 23
+#define BANDAGE_LAYER 22 //Overlays related to wounds, bandages and splints too //SKYRAT EDIT ADDITION - MEDICAL
+#define ID_LAYER 21
+#define ID_CARD_LAYER 20
 #define HANDS_PART_LAYER 19
 #define GLOVES_LAYER 18
 #define SHOES_LAYER 17
@@ -42,7 +43,8 @@
 #define BODY_FRONT_LAYER 3
 #define HALO_LAYER 2 //blood cult ascended halo, because there's currently no better solution for adding/removing
 #define FIRE_LAYER 1 //If you're on fire
-#define TOTAL_LAYERS 29	//KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_; //SKYRAT EDIT CHANGE - 29 from 28. Added BANDAGE_LAYER
+#define TOTAL_LAYERS 30	//KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_; //SKYRAT EDIT CHANGE - 30 from 29. Added BANDAGE_LAYER
+
 
 //Human Overlay Index Shortcuts for alternate_worn_layer, layers
 //Because I *KNOW* somebody will think layer+1 means "above"
@@ -303,6 +305,7 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 #define SHELTER_DEPLOY_BAD_TURFS "bad turfs"
 #define SHELTER_DEPLOY_BAD_AREA "bad area"
 #define SHELTER_DEPLOY_ANCHORED_OBJECTS "anchored objects"
+#define SHELTER_DEPLOY_OUTSIDE_MAP "outside map"
 
 //debug printing macros
 #define debug_world(msg) if (GLOB.Debug2) to_chat(world, \
@@ -358,14 +361,6 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 #define SHUTTLE_HIJACK 24
 #define GANG_DESTROYED 25
 #define GANG_OPERATING 26
-
-//SKYRAT EDIT ADDITION BEGIN - ASSAULTOPS
-#define ASSAULTOPS_STALEMATE 27
-#define ASSAULTOPS_ASSAULT_WIN 28
-#define ASSAULTOPS_CREW_WIN 29
-#define ASSAULTOPS_ASSAULT_LOSS 30
-#define ASSAULTOPS_CREW_LOSS 31
-//SKYRAT EDIT ADDITION END
 
 #define FIELD_TURF 1
 #define FIELD_EDGE 2
@@ -439,6 +434,8 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 #define FLESH_SCAR_FILE "wounds/flesh_scar_desc.json"
 #define BONE_SCAR_FILE "wounds/bone_scar_desc.json"
 #define SCAR_LOC_FILE "wounds/scar_loc.json"
+#define EXODRONE_FILE "exodrone.json"
+#define CLOWN_NONSENSE_FILE "clown_nonsense.json"
 
 //Fullscreen overlay resolution in tiles.
 #define FULLSCREEN_OVERLAY_RESOLUTION_X 15
@@ -462,12 +459,6 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 #define OVERRIDE_CONFIG_DIRECTORY_PARAMETER "config-directory"
 
 #define EGG_LAYING_MESSAGES list("lays an egg.","squats down and croons.","begins making a huge racket.","begins clucking raucously.")
-
-// Used by PDA and cartridge code to reduce repetitiveness of spritesheets
-#define PDAIMG(what) {"<span class="pda16x16 [#what]"></span>"}
-
-/// Prepares a text to be used for maptext. Use this so it doesn't look hideous.
-#define MAPTEXT(text) {"<span class='maptext'>[##text]</span>"}
 
 //Filters
 #define AMBIENT_OCCLUSION filter(type="drop_shadow", x=0, y=-2, size=4, color="#04080FAA")
@@ -524,8 +515,9 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 
 //Religion
 
-#define HOLY_ROLE_PRIEST 1 //default priestly role
-#define HOLY_ROLE_HIGHPRIEST 2 //the one who designates the religion
+#define HOLY_ROLE_DEACON 1 //role below priests, for losing most powers of priests but still being holy.
+#define HOLY_ROLE_PRIEST 2 //default priestly role
+#define HOLY_ROLE_HIGHPRIEST 3 //the one who designates the religion
 
 #define ALIGNMENT_GOOD "good"
 #define ALIGNMENT_NEUT "neutral"
@@ -559,5 +551,6 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 //while using the SKILLCHIP_RESTRICTED_CATEGORIES flag
 #define SKILLCHIP_CATEGORY_GENERAL "general"
 #define SKILLCHIP_CATEGORY_JOB "job"
-#define SKILLCHIP_CATEGORY_FIREMAN_CARRYING "fireman carrying"
-#define SKILLCHIP_CATEGORY_SYNDICATE "syndicate"
+
+/// Emoji icon set
+#define EMOJI_SET 'modular_skyrat/master_files/icons/emoji.dmi' // SKYRAT EDIT

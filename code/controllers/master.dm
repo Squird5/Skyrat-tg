@@ -160,7 +160,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 				msg = "The [BadBoy.name] subsystem seems to be destabilizing the MC and will be offlined."
 				BadBoy.flags |= SS_NO_FIRE
 		if(msg)
-			to_chat(GLOB.admins, "<span class='boldannounce'>[msg]</span>")
+			to_chat(GLOB.admins, span_boldannounce("[msg]"))
 			log_world(msg)
 
 	if (istype(Master.subsystems))
@@ -170,7 +170,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		current_runlevel = Master.current_runlevel
 		StartProcessing(10)
 	else
-		to_chat(world, "<span class='boldannounce'>The Master Controller is having some issues, we will need to re-initialize EVERYTHING</span>")
+		to_chat(world, span_boldannounce("The Master Controller is having some issues, we will need to re-initialize EVERYTHING"))
 		Initialize(20, TRUE)
 
 
@@ -185,7 +185,8 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	if(init_sss)
 		init_subtypes(/datum/controller/subsystem, subsystems)
 
-	to_chat(world, "<span class='boldannounce'>Initializing subsystems...</span>")
+	//to_chat(world, span_boldannounce("Initializing subsystems..."))
+	add_startupmessage("Initializing subsystems...") //SKYRAT EDIT CHANGE
 
 	// Sort subsystems by init_order, so they initialize in the correct order.
 	sortTim(subsystems, /proc/cmp_subsystem_init)
@@ -202,7 +203,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	var/time = (REALTIMEOFDAY - start_timeofday) / 10
 
 	var/msg = "Initializations complete within [time] second[time == 1 ? "" : "s"]!"
-	to_chat(world, "<span class='boldannounce'>[msg]</span>")
+	to_chat(world, span_boldannounce("[msg]"))
 	log_world(msg)
 
 	if (!current_runlevel)
@@ -226,6 +227,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	initializations_finished_with_no_players_logged_in = initialized_tod < REALTIMEOFDAY - 10
 	// Loop.
 	Master.StartProcessing(0)
+	add_startupmessage("Clearing clutter...") //SKYRAT EDIT ADDITION
 
 /datum/controller/master/proc/SetRunLevel(new_runlevel)
 	var/old_runlevel = current_runlevel
@@ -431,6 +433,10 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			continue
 		if ((SS_flags & (SS_TICKER|SS_KEEP_TIMING)) == SS_KEEP_TIMING && SS.last_fire + (SS.wait * 0.75) > world.time)
 			continue
+		if (SS.postponed_fires >= 1)
+			SS.postponed_fires--
+			SS.update_nextfire()
+			continue
 		SS.enqueue()
 	. = 1
 
@@ -447,7 +453,6 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	var/tick_precentage
 	var/tick_remaining
 	var/ran = TRUE //this is right
-	var/ran_non_ticker = FALSE
 	var/bg_calc //have we swtiched current_tick_budget to background mode yet?
 	var/tick_usage
 
@@ -467,20 +472,6 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			if (!(queue_node_flags & SS_TICKER) && skip_ticks)
 				queue_node = queue_node.queue_next
 				continue
-			//super special case, subsystems where we can't make them pause mid way through
-			//if we can't run them this tick (without going over a tick)
-			//we bump up their priority and attempt to run them next tick
-			//(unless we haven't even ran anything this tick, since its unlikely they will ever be able run
-			// in those cases, so we just let them run)
-			if (queue_node_flags & SS_NO_TICK_CHECK)
-				if (queue_node.tick_usage > TICK_LIMIT_RUNNING - TICK_USAGE && ran_non_ticker)
-					if (!(queue_node_flags & SS_BACKGROUND))
-						queue_node.queued_priority += queue_priority_count * 0.1
-						queue_priority_count -= queue_node_priority
-						queue_priority_count += queue_node.queued_priority
-						current_tick_budget -= queue_node_priority
-						queue_node = queue_node.queue_next
-					continue
 
 			if (!bg_calc && (queue_node_flags & SS_BACKGROUND))
 				current_tick_budget = queue_priority_count_bg
@@ -497,8 +488,6 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 			current_ticklimit = round(TICK_USAGE + tick_precentage)
 
-			if (!(queue_node_flags & SS_TICKER))
-				ran_non_ticker = TRUE
 			ran = TRUE
 
 			queue_node_paused = (queue_node.state == SS_PAUSED || queue_node.state == SS_PAUSING)
@@ -543,14 +532,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			queue_node.last_fire = world.time
 			queue_node.times_fired++
 
-			if (queue_node_flags & SS_TICKER)
-				queue_node.next_fire = world.time + (world.tick_lag * queue_node.wait)
-			else if (queue_node_flags & SS_POST_FIRE_TIMING)
-				queue_node.next_fire = world.time + queue_node.wait + (world.tick_lag * (queue_node.tick_overrun/100))
-			else if (queue_node_flags & SS_KEEP_TIMING)
-				queue_node.next_fire += queue_node.wait
-			else
-				queue_node.next_fire = queue_node.queued_time + queue_node.wait + (world.tick_lag * (queue_node.tick_overrun/100))
+			queue_node.update_nextfire()
 
 			queue_node.queued_time = 0
 

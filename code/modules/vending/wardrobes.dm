@@ -31,7 +31,8 @@
 					/obj/item/clothing/under/rank/security/officer/grey = 3,
 					/obj/item/clothing/under/pants/khaki = 3,
 					/obj/item/clothing/under/rank/security/officer/blueshirt = 3,
-					/obj/item/clothing/under/utility/sec = 3)	//SKYRAT EDIT ADDITION
+					/obj/item/clothing/under/utility/sec/old = 3,	//SKYRAT EDIT ADDITION START
+					/obj/item/clothing/suit/toggle/jacket/sec/old = 3)	//SKYRAT EDIT ADDITION END
 	premium = list(/obj/item/clothing/under/rank/security/officer/formal = 3,
 					/obj/item/clothing/suit/security/officer = 3,
 					/obj/item/clothing/head/beret/sec/navyofficer = 3)
@@ -62,9 +63,14 @@
 					/obj/item/clothing/under/rank/medical/doctor/blue = 4,
 					/obj/item/clothing/under/rank/medical/doctor/green = 4,
 					/obj/item/clothing/under/rank/medical/doctor/purple = 4,
+					/obj/item/clothing/under/rank/medical/doctor/red/unarm = 4,	//SKYRAT EDIT ADDITION
+					/obj/item/clothing/under/rank/medical/doctor/white = 4,	//SKYRAT EDIT ADDITION
 					/obj/item/clothing/under/rank/medical/doctor = 4,
-					/obj/item/clothing/under/utility/med = 4,	//SKYRAT EDIT ADDITION
-					/obj/item/clothing/under/utility/haz_white = 2,	//SKYRAT EDIT ADDITION
+					/obj/item/clothing/under/utility/med = 4,	//SKYRAT EDIT ADDITION START
+					/obj/item/clothing/under/rank/medical/doctor/formal = 4,
+					/obj/item/clothing/under/rank/medical/doctor/formal/skirt = 4,
+					/obj/item/clothing/suit/toggle/jacket/med = 4,
+					/obj/item/clothing/under/utility/haz_white = 2,	//SKYRAT EDIT ADDITION END
 					/obj/item/clothing/suit/toggle/labcoat = 4,
 					/obj/item/clothing/suit/toggle/labcoat/paramedic = 4,
 					/obj/item/clothing/shoes/sneakers/white = 4,
@@ -72,6 +78,7 @@
 					/obj/item/clothing/head/beret/job/med = 4,	//SKYRAT EDIT ADDITION
 					/obj/item/clothing/suit/apron/surgical = 4,
 					/obj/item/clothing/mask/surgical = 4,
+					/obj/item/clothing/gloves/color/latex/nitrile = 2, //SKYRAT EDIT ADDITION
 					/obj/item/clothing/suit/toggle/labcoat/hospitalgown = 4)	//SKYRAT EDIT ADDITION
 	refill_canister = /obj/item/vending_refill/wardrobe/medi_wardrobe
 	payment_department = ACCOUNT_MED
@@ -92,15 +99,24 @@
 					/obj/item/clothing/suit/hooded/wintercoat/engineering = 3,
 					/obj/item/clothing/under/rank/engineering/engineer = 3,
 					/obj/item/clothing/under/rank/engineering/engineer/skirt = 3,
+					/obj/item/clothing/under/rank/engineering/engineer/trouser = 3,	//SKYRAT EDIT ADDITION
 					/obj/item/clothing/under/utility/eng = 3,	//SKYRAT EDIT ADDITION
+					/obj/item/clothing/suit/toggle/jacket/engi = 3,	//SKYRAT EDIT ADDITION
 					/obj/item/clothing/under/misc/overalls = 3,		// SKYRAT EDIT ADDITION
-					/obj/item/clothing/under/rank/engineering/engineer/hazard = 3,
+					/obj/item/clothing/under/rank/engineering/engineer/formal = 3,	//SKYRAT EDIT ADDITION
+					/obj/item/clothing/under/rank/engineering/engineer/formal/skirt = 3,	//SKYRAT EDIT ADDITION
+					/obj/item/clothing/under/rank/engineering/engineer/hazard = 3,	//SKYRAT EDIT ADDITION
 					/obj/item/clothing/under/utility/haz_green = 3,	//SKYRAT EDIT ADDITION
 					/obj/item/clothing/suit/hazardvest = 3,
 					/obj/item/clothing/shoes/workboots = 3,
 					/obj/item/clothing/head/beret/job/engi = 3,	//SKYRAT EDIT ADDITION
 					/obj/item/clothing/head/hardhat = 3,
-					/obj/item/clothing/head/hardhat/weldhat = 3)
+					/obj/item/clothing/head/hardhat/weldhat = 3,
+					/obj/item/clothing/head/hardhat/orange = 3,	//SKYRAT EDIT ADDITION START
+					/obj/item/clothing/head/hardhat/weldhat/orange = 3,
+					/obj/item/clothing/head/hardhat/dblue = 3,
+					/obj/item/clothing/head/hardhat/weldhat/dblue = 3	//SKYRAT EDIT ADDITION END
+					)
 	refill_canister = /obj/item/vending_refill/wardrobe/engi_wardrobe
 	payment_department = ACCOUNT_ENG
 	light_color = COLOR_VIVID_YELLOW
@@ -115,6 +131,7 @@
 	product_ads = "Get your inflammable clothing right here!!!"
 	vend_reply = "Thank you for using the AtmosDrobe!"
 	products = list(/obj/item/clothing/accessory/pocketprotector = 2,
+					/obj/item/clothing/glasses/meson/engine = 2,	//SKYRAT EDIT ADDITION - why would they only get t-rays? they need radiation-sight more than pipes anyways
 					/obj/item/storage/backpack/duffelbag/engineering = 2,
 					/obj/item/storage/backpack/satchel/eng = 2,
 					/obj/item/storage/backpack/industrial = 2,
@@ -138,18 +155,33 @@
 	icon_state = "cargodrobe"
 	product_ads = "Upgraded Assistant Style! Pick yours today!;These shorts are comfy and easy to wear, get yours now!"
 	vend_reply = "Thank you for using the CargoDrobe!"
-	products = list(/obj/item/clothing/suit/hooded/wintercoat/cargo = 3,
-					/obj/item/clothing/under/rank/cargo/tech = 3,
-					/obj/item/clothing/under/rank/cargo/tech/skirt = 3,
-					/obj/item/clothing/under/misc/cargo_long = 3,	//SKYRAT EDIT ADDITION
-					/obj/item/clothing/under/utility/cargo = 3,	//SKYRAT EDIT ADDITION
-					/obj/item/clothing/shoes/sneakers/black = 3,
-					/obj/item/clothing/gloves/fingerless = 3,
-					/obj/item/clothing/head/soft = 3,
-					/obj/item/radio/headset/headset_cargo = 3)
-	premium = list(/obj/item/clothing/under/rank/cargo/miner = 3)
+	products = list(
+		/obj/item/storage/bag/mail = 3,
+		/obj/item/clothing/suit/hooded/wintercoat/cargo = 3,
+		/obj/item/clothing/under/rank/cargo/tech = 3,
+		/obj/item/clothing/under/rank/cargo/tech/skirt = 3,
+		/obj/item/clothing/under/misc/cargo_long = 3,	//SKYRAT EDIT ADDITION START
+		/obj/item/clothing/under/utility/cargo/gorka = 3,
+		/obj/item/clothing/under/utility/cargo/turtleneck = 3,
+		/obj/item/clothing/under/utility/cargo = 3,
+		/obj/item/clothing/under/rank/cargo/casualman = 3,
+		/obj/item/clothing/suit/gorka/supply = 3,
+		/obj/item/clothing/suit/toggle/jacket/supply = 3,	//SKYRAT EDIT ADDITION END
+		/obj/item/clothing/shoes/sneakers/black = 3,
+		/obj/item/clothing/gloves/fingerless = 3,
+		/obj/item/clothing/head/soft = 3,
+		/obj/item/radio/headset/headset_cargo = 3)
+	contraband = list(/obj/item/clothing/under/suit/white/scarface = 2, //SKYRAT EDIT
+					/obj/item/clothing/under/misc/evilcargo = 2
+	)
+	premium = list(
+		/obj/item/clothing/under/rank/cargo/miner = 3,
+		/obj/item/clothing/head/mailman = 1,
+		/obj/item/clothing/under/misc/mailman = 1
+	)
 	refill_canister = /obj/item/vending_refill/wardrobe/cargo_wardrobe
 	payment_department = ACCOUNT_CAR
+
 /obj/item/vending_refill/wardrobe/cargo_wardrobe
 	machine_name = "CargoDrobe"
 
@@ -194,7 +226,9 @@
 					/obj/item/clothing/under/rank/rnd/scientist = 3,
 					/obj/item/clothing/under/rank/rnd/scientist/skirt = 3,
 					/obj/item/clothing/under/utility/sci = 3,	//SKYRAT EDIT ADDITION
+					/obj/item/clothing/suit/toggle/jacket/sci = 3,	//SKYRAT EDIT ADDITION
 					/obj/item/clothing/suit/toggle/labcoat/science = 3,
+					/obj/item/clothing/under/misc/hlscience = 3,	//SKYRAT EDIT ADDITION
 					/obj/item/clothing/shoes/sneakers/white = 3,
 					/obj/item/radio/headset/headset_sci = 3,
 					/obj/item/clothing/mask/gas = 3)
@@ -220,6 +254,9 @@
 					/obj/item/clothing/under/rank/civilian/hydroponics/skirt = 3,
 					/obj/item/clothing/mask/bandana = 3,
 					/obj/item/clothing/accessory/armband/hydro = 3)
+	contraband = list(/obj/item/clothing/under/suit/white/scarface = 2, //SKYRAT EDIT
+					/obj/item/clothing/under/costume/loincloth/sensor/adam = 2,
+					/obj/item/clothing/under/misc/gear_harness/eve = 2)
 	refill_canister = /obj/item/vending_refill/wardrobe/hydro_wardrobe
 	payment_department = ACCOUNT_SRV
 	light_color = LIGHT_COLOR_ELECTRIC_GREEN
@@ -239,9 +276,12 @@
 					/obj/item/pen/fourcolor = 1,
 					/obj/item/pen/fountain = 2,
 					/obj/item/clothing/accessory/pocketprotector = 2,
-					/obj/item/clothing/under/rank/civilian/curator/skirt = 2,
-					/obj/item/clothing/under/rank/captain/suit/skirt = 2,
-					/obj/item/clothing/under/rank/civilian/head_of_personnel/suit/skirt = 2,
+					/obj/item/clothing/under/rank/civilian/curator = 1,
+					/obj/item/clothing/under/rank/civilian/curator/skirt = 1,
+					/obj/item/clothing/under/rank/captain/suit = 1,
+					/obj/item/clothing/under/rank/captain/suit/skirt = 1,
+					/obj/item/clothing/under/rank/civilian/head_of_personnel/suit = 1,
+					/obj/item/clothing/under/rank/civilian/head_of_personnel/suit/skirt = 1,
 					/obj/item/storage/backpack/satchel/explorer = 1,
 					/obj/item/clothing/glasses/regular = 2,
 					/obj/item/clothing/glasses/regular/jamjar = 1,
@@ -267,6 +307,7 @@
 					/obj/item/clothing/suit/apron/purple_bartender = 2,
 					/obj/item/clothing/head/soft/black = 2,
 					/obj/item/clothing/shoes/sneakers/black = 2,
+					/obj/item/clothing/suit/hooded/wintercoat/bartender = 2,	//SKYRAT EDIT ADDITION
 					/obj/item/reagent_containers/glass/rag = 2,
 					/obj/item/storage/box/beanbag = 1,
 					/obj/item/clothing/suit/armor/vest/alt = 1,
@@ -375,11 +416,11 @@
 	machine_name = "LawDrobe"
 
 /obj/machinery/vending/wardrobe/chap_wardrobe
-	name = "ChapDrobe"
-	desc = "This most blessed and holy machine vends clothing only suitable for chaplains to gaze upon."
+	name = "DeusVend"
+	desc = "God wills your purchase."
 	icon_state = "chapdrobe"
 	product_ads = "Are you being bothered by cultists or pesky revenants? Then come and dress like the holy man!;Clothes for men of the cloth!"
-	vend_reply = "Thank you for using the ChapDrobe!"
+	vend_reply = "Thank you for using the DeusVend!"
 	products = list(/obj/item/choice_beacon/holy = 1,
 					/obj/item/storage/backpack/cultpack = 1,
 					/obj/item/clothing/accessory/pocketprotector/cosmetology = 1,
@@ -400,11 +441,17 @@
 					//SKYRAT EDIT ADDITION BEGIN
 					/obj/item/clothing/suit/nemes = 1,
 					/obj/item/clothing/head/nemes = 1,
-					/obj/item/clothing/head/pharaoh = 1)
+					/obj/item/clothing/head/pharaoh = 1,
+					/obj/item/clothing/under/rank/pmarsrobe = 1)
 					//SKYRAT EDIT ADDITION END
 	contraband = list(/obj/item/toy/plush/ratplush = 1,
 					/obj/item/toy/plush/narplush = 1,
 					/obj/item/clothing/head/medievaljewhat = 3,
+					//SKYRAT EDIT ADDITION BEGIN
+					/obj/item/clothing/neck/chaplain = 1,
+					/obj/item/clothing/neck/chaplain/black = 1,
+					/obj/item/implanter/mortis = 1,
+					//SKYRAT EDIT ADDITION END
 					/obj/item/clothing/suit/chaplainsuit/clownpriest = 1,
 					/obj/item/clothing/head/clownmitre = 1)
 	premium = list(/obj/item/clothing/suit/chaplainsuit/bishoprobe = 1,
@@ -412,7 +459,7 @@
 	refill_canister = /obj/item/vending_refill/wardrobe/chap_wardrobe
 	payment_department = ACCOUNT_SRV
 /obj/item/vending_refill/wardrobe/chap_wardrobe
-	machine_name = "ChapDrobe"
+	machine_name = "DeusVend"
 
 /obj/machinery/vending/wardrobe/chem_wardrobe
 	name = "ChemDrobe"
@@ -426,6 +473,8 @@
 					/obj/item/clothing/suit/toggle/labcoat/chemist = 2,
 					/obj/item/clothing/head/beret/job/med/chem = 2,	//SKYRAT EDIT ADDITION
 					/obj/item/clothing/suit/hooded/wintercoat/medical/chemistry = 2,
+					/obj/item/clothing/under/rank/medical/chemist/formal = 2,	//SKYRAT EDIT ADDITION BEGIN
+					/obj/item/clothing/under/rank/medical/chemist/formal/skirt = 2,	//SKYRAT EDIT ADDITION END
 					/obj/item/storage/backpack/chemistry = 2,
 					/obj/item/storage/backpack/satchel/chem = 2,
 					/obj/item/storage/backpack/duffelbag/chemistry = 2,
@@ -499,11 +548,23 @@
 					/obj/item/clothing/shoes/laceup = 2,
 					/obj/item/clothing/suit/det_suit/grey = 1,
 					/obj/item/clothing/suit/det_suit/noir = 1,
+					/obj/item/clothing/suit/toggle/labcoat/highvis = 2,	//SKYRAT EDIT ADDITION
 					/obj/item/clothing/head/fedora = 2,
+					/obj/item/clothing/suit/toggle/deckard = 2,//SKYRAT EDIT ADDITION
+					/obj/item/clothing/suit/discoblazer = 2,	//SKYRAT EDIT ADDITION
+					/obj/item/clothing/under/misc/discounder = 2,
+					/obj/item/clothing/shoes/discoshoes = 2,
+					/obj/item/clothing/neck/tie/disco = 2,
+					/obj/item/clothing/suit/kimjacket = 2,
+					/obj/item/clothing/under/misc/kimunder = 2,
+					/obj/item/clothing/shoes/kimshoes = 2,
+					/obj/item/clothing/glasses/kim = 2,
+					/obj/item/clothing/gloves/kim = 2,	//SKYRAT EDIT ADD END
 					/obj/item/clothing/gloves/color/black = 2,
 					/obj/item/clothing/gloves/color/latex = 2,
 					/obj/item/reagent_containers/food/drinks/flask/det = 2,
-					/obj/item/storage/fancy/cigarettes = 5)
+					/obj/item/storage/fancy/cigarettes = 5,
+					/obj/item/taperoll/police = 1) //SKYRAT EDIT ADDITION - Police tape
 	premium = list(/obj/item/clothing/head/flatcap = 1)
 	refill_canister = /obj/item/vending_refill/wardrobe/det_wardrobe
 	extra_price = PAYCHECK_COMMAND * 1.75

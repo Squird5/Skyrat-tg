@@ -2,9 +2,9 @@
 	name = "armadyne corporate uniform"
 	desc = "A robust uniform worn by Armadyne corporate."
 	icon_state = "armadyne_shirt"
-	icon = 'modular_skyrat/modules/sec_haul/icons/armadyne/armadyne_items.dmi'
-	worn_icon = 'modular_skyrat/modules/sec_haul/icons/armadyne/armadyne_clothing.dmi'
-	worn_icon_digi = 'modular_skyrat/modules/sec_haul/icons/armadyne/armadyne_clothing_digi.dmi'
+	icon = 'modular_skyrat/master_files/icons/obj/clothing/uniforms.dmi'
+	worn_icon = 'modular_skyrat/master_files/icons/mob/clothing/uniform.dmi'
+	worn_icon_digi = 'modular_skyrat/master_files/icons/mob/clothing/uniform_digi.dmi'
 	worn_icon_state = "armadyne_shirt"
 
 /obj/item/clothing/under/rank/security/peacekeeper/armadyne/tactical
@@ -17,8 +17,8 @@
 /obj/item/clothing/head/beret/sec/peacekeeper/armadyne
 	name = "armadyne corporate beret"
 	desc = "A comfy yet robust beret worn by Armadyne corporate."
-	icon = 'modular_skyrat/modules/sec_haul/icons/armadyne/armadyne_items.dmi'
-	worn_icon = 'modular_skyrat/modules/sec_haul/icons/armadyne/armadyne_clothing.dmi'
+	icon = 'modular_skyrat/master_files/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_skyrat/master_files/icons/mob/clothing/head.dmi'
 	icon_state = "armadyne_beret"
 	mutant_variants = NONE
 	armor = list(MELEE = 50, BULLET = 70, LASER = 60, ENERGY = 60, BOMB = 50, BIO = 0, RAD = 0, FIRE = 90, ACID = 90, WOUND = 30)
@@ -26,16 +26,16 @@
 /obj/item/clothing/suit/armor/hos/trenchcoat/peacekeeper/armadyne
 	name = "armored armadyne trenchcoat"
 	desc = "An Armadyne branded trenchcoat, feels heavy, premium, and pristegious. Worn by Armadyne corporate."
-	icon = 'modular_skyrat/modules/sec_haul/icons/armadyne/armadyne_items.dmi'
-	worn_icon = 'modular_skyrat/modules/sec_haul/icons/armadyne/armadyne_clothing.dmi'
+	icon = 'modular_skyrat/master_files/icons/obj/clothing/suits.dmi'
+	worn_icon = 'modular_skyrat/master_files/icons/mob/clothing/suit.dmi'
 	icon_state = "armadyne_trench"
 	armor = list(MELEE = 50, BULLET = 70, LASER = 60, ENERGY = 60, BOMB = 50, BIO = 0, RAD = 0, FIRE = 90, ACID = 90, WOUND = 30)
 
 /obj/item/clothing/suit/armor/vest/peacekeeper/armadyne
 	name = "armadyne armor jacket"
 	desc = "An Armadyne branded suit vest, feels heavy, premium, and pristegious. Worn by Armadyne corporate."
-	icon = 'modular_skyrat/modules/sec_haul/icons/armadyne/armadyne_items.dmi'
-	worn_icon = 'modular_skyrat/modules/sec_haul/icons/armadyne/armadyne_clothing.dmi'
+	icon = 'modular_skyrat/master_files/icons/obj/clothing/suits.dmi'
+	worn_icon = 'modular_skyrat/master_files/icons/mob/clothing/suit.dmi'
 	icon_state = "armadyne_jacket"
 	worn_icon_state = "armadyne_jacket"
 	mutant_variants = NONE
@@ -53,14 +53,14 @@
 /obj/item/clothing/glasses/hud/security/sunglasses/peacekeeper/armadyne
 	name = "armadyne hud glasses"
 	icon_state = "armadyne_glasses"
-	worn_icon = 'modular_skyrat/modules/sec_haul/icons/armadyne/armadyne_clothing.dmi'
-	icon = 'modular_skyrat/modules/sec_haul/icons/armadyne/armadyne_items.dmi'
+	worn_icon = 'modular_skyrat/master_files/icons/mob/clothing/eyes.dmi'
+	icon = 'modular_skyrat/master_files/icons/obj/clothing/glasses.dmi'
 
 /obj/item/clothing/gloves/combat/peacekeeper/armadyne
 	name = "armadyne combat gloves"
 	desc = "Tactical and sleek. Worn by Armadyne representatives."
-	icon = 'modular_skyrat/modules/sec_haul/icons/armadyne/armadyne_items.dmi'
-	worn_icon = 'modular_skyrat/modules/sec_haul/icons/armadyne/armadyne_clothing.dmi'
+	icon = 'modular_skyrat/master_files/icons/obj/clothing/gloves.dmi'
+	worn_icon = 'modular_skyrat/master_files/icons/mob/clothing/hands.dmi'
 	icon_state = "armadyne_gloves"
 	worn_icon_state = "armadyne_gloves"
 	cut_type = null
@@ -68,9 +68,9 @@
 /obj/item/clothing/shoes/combat/peacekeeper/armadyne
 	name = "armadyne combat boots"
 	desc = "Tactical and sleek. Worn by Armadyne representatives."
-	icon = 'modular_skyrat/modules/sec_haul/icons/armadyne/armadyne_items.dmi'
-	worn_icon = 'modular_skyrat/modules/sec_haul/icons/armadyne/armadyne_clothing.dmi'
-	worn_icon_digi = 'modular_skyrat/modules/sec_haul/icons/armadyne/armadyne_clothing_digi.dmi'
+	icon = 'modular_skyrat/master_files/icons/obj/clothing/shoes.dmi'
+	worn_icon = 'modular_skyrat/master_files/icons/mob/clothing/feet.dmi'
+	worn_icon_digi = 'modular_skyrat/master_files/icons/mob/clothing/feet_digi.dmi'
 	icon_state = "armadyne_boots"
 	inhand_icon_state = "jackboots"
 	worn_icon_state = "armadyne_boots"
@@ -79,16 +79,16 @@
 /obj/item/storage/belt/security/webbing/peacekeeper/armadyne
 	name = "armadyne webbing"
 	desc = "Unique and versatile chest rig, can hold security gear."
-	icon = 'modular_skyrat/modules/sec_haul/icons/armadyne/armadyne_items.dmi'
-	worn_icon = 'modular_skyrat/modules/sec_haul/icons/armadyne/armadyne_clothing.dmi'
+	icon = 'modular_skyrat/master_files/icons/obj/clothing/belts.dmi'
+	worn_icon = 'modular_skyrat/master_files/icons/mob/clothing/belt.dmi'
 	icon_state = "armadyne_webbing"
 	worn_icon_state = "armadyne_webbing"
 
 /obj/item/storage/belt/security/peacekeeper/armadyne
 	name = "armadyne belt"
 	desc = "Can hold security gear like handcuffs and flashes. Has a holster for a gun."
-	icon = 'modular_skyrat/modules/sec_haul/icons/armadyne/armadyne_items.dmi'
-	worn_icon = 'modular_skyrat/modules/sec_haul/icons/armadyne/armadyne_clothing.dmi'
+	icon = 'modular_skyrat/master_files/icons/obj/clothing/belts.dmi'
+	worn_icon = 'modular_skyrat/master_files/icons/mob/clothing/belt.dmi'
 	icon_state = "armadyne_belt"
 	worn_icon_state = "armadyne_belt"
 
@@ -110,7 +110,7 @@
 	box = /obj/item/storage/box/survival/security
 	l_pocket = /obj/item/megaphone/command
 	implants = list(/obj/item/implant/mindshield)
-	id = /obj/item/card/id/armadyne/corpo
+	id = /obj/item/card/id/advanced/armadyne/agent
 
 
 /datum/outfit/armadyne_security
@@ -132,21 +132,40 @@
 	box = /obj/item/storage/box/survival/security
 	l_pocket = /obj/item/megaphone/command
 	implants = list(/obj/item/implant/mindshield)
-	id = /obj/item/card/id/armadyne/corpo/security
+	id = /obj/item/card/id/advanced/armadyne/security
 
-/obj/item/card/id/armadyne/corpo
+/obj/item/card/id/advanced/armadyne
 	name = "\improper Armadyne ID"
-	id_type_name = "\improper Armadyne ID"
 	desc = "An Armadyne ID card."
-	icon_state = "centcom"
-	registered_name = "Armadyne Corpo"
-	assignment = "Armadyne Corporate Agent"
-	uses_overlays = FALSE
+	icon_state = "card_centcom"
+	worn_icon_state = "card_centcom"
+	assigned_icon_state = "assigned_centcom"
 	registered_age = null
+	trim = /datum/id_trim/centcom/armadyne
+	wildcard_slots = WILDCARD_LIMIT_CENTCOM
 
-/obj/item/card/id/armadyne/Initialize(mapload)
+/datum/id_trim/centcom/armadyne
+	assignment = "Armadyne Corporate"
+	trim_state = "trim_ert_commander"
+
+/datum/id_trim/centcom/armadyne/New()
 	. = ..()
-	access = get_all_accesses()+get_ert_access("commander")-ACCESS_CHANGE_IDS
+	access = SSid_access.get_region_access_list(list(REGION_CENTCOM, REGION_ALL_STATION))
+
+/obj/item/card/id/advanced/armadyne/security
+	registered_name = "Armadyne Corpo"
+	trim = /datum/id_trim/centcom/armadyne/security
+
+/datum/id_trim/centcom/armadyne/security
+	assignment = "Armadyne Corporate Security Detail"
+	trim_state = "trim_ert_commander"
+
+/obj/item/card/id/advanced/armadyne/agent
+	trim = /datum/id_trim/centcom/armadyne/agent
+
+/datum/id_trim/centcom/armadyne/agent
+	assignment = "Armadyne Corporate Directorate"
+	trim_state = "trim_ert_commander"
 
 /datum/outfit/armadyne_rep/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)

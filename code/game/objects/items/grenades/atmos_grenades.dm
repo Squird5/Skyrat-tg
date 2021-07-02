@@ -12,7 +12,7 @@
 	if(user)
 		add_fingerprint(user)
 		if(msg)
-			to_chat(user, "<span class='warning'>You crush the [src]! [capitalize(DisplayTimeText(det_time))]!</span>")
+			to_chat(user, span_warning("You crush the [src]! [capitalize(DisplayTimeText(det_time))]!"))
 	if(shrapnel_type && shrapnel_radius)
 		shrapnel_initialized = TRUE
 		AddComponent(/datum/component/pellet_cloud, projectile_type=shrapnel_type, magnitude=shrapnel_radius)
@@ -31,7 +31,7 @@
 	///Range of the grenade that will cool down and affect mobs
 	var/freeze_range = 4
 	///Amount of gas released if the state is optimal
-	var/gas_amount = 70
+	var/gas_amount = 200
 
 /obj/item/grenade/gas_crystal/healium_crystal/detonate(mob/living/lanced_by)
 	. = ..()
@@ -61,7 +61,7 @@
 	///Range of the grenade air refilling
 	var/refill_range = 5
 	///Amount of Nitrogen gas released (close to the grenade)
-	var/n2_gas_amount = 60
+	var/n2_gas_amount = 80
 	///Amount of Oxygen gas released (close to the grenade)
 	var/o2_gas_amount = 30
 

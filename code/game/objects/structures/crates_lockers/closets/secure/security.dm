@@ -32,7 +32,6 @@
 	new /obj/item/storage/belt/sabre(src)
 	new /obj/item/storage/box/gunset/pdh_captain(src) //SKYRAT EDIT CHANGE - SEC_HAUL
 	new /obj/item/door_remote/captain(src)
-	new /obj/item/card/id/captains_spare(src)
 	new /obj/item/storage/photo_album/captain(src)
 
 /obj/structure/closet/secure_closet/hop
@@ -56,7 +55,7 @@
 	new /obj/item/clothing/suit/armor/vest/alt(src)
 	new /obj/item/assembly/flash/handheld(src)
 	new /obj/item/clothing/glasses/sunglasses(src)
-	new /obj/item/storage/box/gunset/pdh_hop(src) //SKYRAT EDIT CHANGE - SEC_HAUL
+	new /obj/item/gun/energy/e_gun(src) //SKYRAT EDIT
 	new /obj/item/clothing/neck/petcollar(src)
 	new /obj/item/pet_carrier(src)
 	new /obj/item/door_remote/civilian(src)
@@ -70,6 +69,7 @@
 	name = "\proper head of security's locker"
 	req_access = list(ACCESS_HOS)
 	icon_state = "hos"
+	storage_capacity = 40 //SKYRAT EDIT ADDITION
 
 /obj/structure/closet/secure_closet/hos/PopulateContents()
 	..()
@@ -102,7 +102,8 @@
 	new /obj/item/circuitboard/machine/techfab/department/security(src)
 	new /obj/item/storage/photo_album/hos(src)
 	new /obj/item/clothing/suit/hooded/wintercoat/security/hos(src)
-	new /obj/item/storage/box/gunset/glock18_hos(src)
+	new /obj/item/storage/box/gunset/glock18_hos(src) //SKYRAT EDIT CHANGE
+	new /obj/item/storage/box/armament_tokens_sarge(src) // SKYRAT EDIT ADDITION
 
 /obj/structure/closet/secure_closet/warden
 	name = "\proper warden's locker"
@@ -144,6 +145,7 @@
 	new /obj/item/radio/headset/headset_sec/alt(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses/peacekeeper(src) //SKRYAT EDIT CHANGE - SEC_HAUL - ORIGINAL: /obj/item/clothing/glasses/hud/security/sunglasses
 	new /obj/item/flashlight/seclite(src)
+	new /obj/item/holosign_creator/security(src) // SKYRAT EDIT ADD
 
 /obj/structure/closet/secure_closet/security/sec
 
@@ -201,6 +203,7 @@
 	new /obj/item/pinpointer/crew(src)
 	new /obj/item/binoculars(src)
 	new /obj/item/storage/box/rxglasses/spyglasskit(src)
+	new /obj/item/taperoll/police(src) //SKYRAT EDIT ADDITION - Detective starts with this in their locker :)
 
 /obj/structure/closet/secure_closet/injection
 	name = "lethal injections"
